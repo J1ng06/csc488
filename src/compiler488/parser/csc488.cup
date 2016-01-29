@@ -44,7 +44,8 @@ terminal String     TEXTCONST;
         nonterminal JavaType nameList;
 */
 
-nonterminal program;
+nonterminal program, statement, declaration, scope, type, 
+			variable, expression, variablenames;
 
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
@@ -71,7 +72,7 @@ start with program;
  */
 
 // The main program.
-program  ::=   ;
+program ::= scope;
 
 /*****************************************************************************
 
@@ -80,4 +81,19 @@ program  ::=   ;
     GOES HERE
 
 ****************************************************************************/
+scope ::= L_CURLEY declaration statement R_CURLEY;
+scope ::= L_CURLEY statement R_CURLEY;
+scope ::= L_CURLEY R_CURLEY;
 
+statement ::= EXIT;
+statement ::= variable COLON EQUAL expression;
+
+declaration ::= VAR variablenames COLON type;
+
+variable ::= variablenames;
+
+type ::= BOOLEAN;
+
+expression ::= TRUE;
+
+variablenames ::= IDENT;
