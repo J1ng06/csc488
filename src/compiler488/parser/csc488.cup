@@ -90,14 +90,19 @@ statement ::= variable COLON EQUAL expression
 
 declaration ::= VAR variablenames COLON type
 			  | FUNCTION functionname COLON type scope
+			  | FUNCTION functionname L_PAREN parameters R_PAREN COLON type scope
 			  | declaration declaration;
-
-variable ::= variablenames;
 
 type ::= INTEGER
 	   | BOOLEAN;
+	   
+parameters ::= parametername COLON type;
+			 | parameters 
+			 
+variable ::= variablenames;
 
 expression ::= TRUE;
+			 | FALSE;
 
 variablename ::= IDENT;
 arrayname::= IDENT;
