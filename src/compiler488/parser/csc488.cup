@@ -48,8 +48,8 @@ nonterminal program, statement, declaration, variablenames,
 		bound, generalBound, scope, output,
 		input, type, arguments, parameters, 
 		variable, expression, variablename, arrayname,
-		functionname, parametername, procedurename;
-
+		functionname, parametername, procedurename,
+		conditional, inparen, e0, e1, e2, e3, e4, e5, e6;
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
     resolve the precedence of arithmetic operators.
@@ -93,8 +93,8 @@ statement ::= variable COLON EQUAL expression
 
 declaration ::= VAR variablenames COLON type
 		| FUNCTION functionname COLON type scope
-		| FUNCTION functionname L_PAREN parameters R_PAREN COLON type scope
-		| declaration declaration;
+		| FUNCTION functionname L_PAREN parameters R_PAREN COLON type scope;
+/*		| declaration declaration;*/
 
 variablenames ::= variablename
 		| variablename L_SQUARE bound R_SQUARE
@@ -150,7 +150,48 @@ expression ::= INTEGER
 		| variable
 		| functionname
 		| functionname L_PAREN arguments R_PAREN
+		| parametername
+		| expression OR e6
+		| e6;
+		
+e6 ::= e6 AND e5
+		| e5;
+		
+e5 ::= NOT e4
+		| e4;
+		
+e4 ::= e3 EQUAL e3
+		| e3 NOT EQUAL e3
+		| e3 LESS e3
+		| e3 LESS EQUAL e3
+		| e3 GREATER e3
+		| e3 GREATER EQUAL e3
+		| e3;
+		
+e3 ::= e3 + e2
+		| e3 - e2
+		| e2;
+		
+e2 ::= e2 TIMES e1
+		| e2 DIVIDE e1
+		| e1;
+		
+e1 ::= MINUS e0
+		| e0;
+		
+e0 ::= L_PAREN inparen R_PAREN
+		| INTEGER
+		| TRUE
+		| FALSE
+		| variablename
+		| functionname
+/*		| functionname L_PAREN arguments R_PAREN */
 		| parametername;
+		
+inparen ::= expression
+		| conditional;		
+		
+conditional ::= expression QUESTION expression COLON expression;
 
 variablename ::= IDENT;
 arrayname ::= IDENT;
