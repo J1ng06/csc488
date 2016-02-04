@@ -44,12 +44,11 @@ terminal String     TEXTCONST;
         nonterminal JavaType nameList;
 */
 
-nonterminal program, statement, declaration, variablenames, 
-		bound, generalBound, scope, output,
-		input, type, arguments, parameters, 
-		variable, expression, variablename, arrayname,
-		functionname, parametername, procedurename,
-		conditional, inparen, e0, e1, e2, e3, e4, e5, e6;
+nonterminal program, statement, declaration, scope, type, 
+			variable, expression, variablenames, variablename,
+			parameters, functionname, parametername, procedurename,
+			conditional, inparen, e0, e1, e2, e3, e4, e5, e6;
+
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
     resolve the precedence of arithmetic operators.
@@ -96,70 +95,20 @@ declaration ::= VAR variablenames COLON type
 		| FUNCTION functionname L_PAREN parameters R_PAREN COLON type scope;
 /*		| declaration declaration;*/
 
-variablenames ::= variablename
-		| variablename L_SQUARE bound R_SQUARE
-		| variablename L_SQUARE bound COMMA bound R_SQUARE
-		| variablenames COMMA variablenames;
-
-bound ::= INTEGER
-		| generalBound DOT DOT generalBound;
-
-generalBound ::= INTEGER
-		| MINUS INTEGER;
-
-output ::= expression
-		| TEXTCONST
-		| NEWLINE
-		| output COMMA output;
-
-input ::= variable
-		| input COMMA input;
-
 type ::= INTEGER
 		| BOOLEAN;
 	   
-arguments ::= expression
-		| arguments COMMA arguments;
-	   
-parameters ::= parametername COLON type
-		| parameters COMMA parameters; 
+parameters ::= parametername COLON type;
+/*		| parameters; */
 			 
-variable ::= variablenames
-		| arrayname L_SQUARE expression R_SQUARE
-		| arrayname L_SQUARE expression COMMA expression R_SQUARE;
+variable ::= variablenames;
 
-expression ::= INTEGER
-		| MINUS expression
-		| expression PLUS expression
-		| expression MINUS expression
-		| expression TIMES expression
-		| expression DIVIDE expression
-		| TRUE
-		| FALSE
-		| NOT expression
-		| expression AND expression
-		| expression OR expression
-		| expression EQUAL expression
-		| expression NOT EQUAL expression
-		| expression LESS expression
-		| expression LESS EQUAL expression
-		| expression GREATER expression
-		| expression GREATER EQUAL expression
-		| L_PAREN expression R_PAREN
-		| L_PAREN expression QUESTION expression COLON expression R_PAREN
-		| variable
-		| functionname
-		| functionname L_PAREN arguments R_PAREN
-		| parametername
-		| expression OR e6
+expression ::= expression OR e6
 		| e6;
-		
 e6 ::= e6 AND e5
 		| e5;
-		
 e5 ::= NOT e4
 		| e4;
-		
 e4 ::= e3 EQUAL e3
 		| e3 NOT EQUAL e3
 		| e3 LESS e3
@@ -167,18 +116,14 @@ e4 ::= e3 EQUAL e3
 		| e3 GREATER e3
 		| e3 GREATER EQUAL e3
 		| e3;
-		
 e3 ::= e3 + e2
 		| e3 - e2
 		| e2;
-		
 e2 ::= e2 TIMES e1
 		| e2 DIVIDE e1
 		| e1;
-		
 e1 ::= MINUS e0
 		| e0;
-		
 e0 ::= L_PAREN inparen R_PAREN
 		| INTEGER
 		| TRUE
@@ -187,14 +132,12 @@ e0 ::= L_PAREN inparen R_PAREN
 		| functionname
 /*		| functionname L_PAREN arguments R_PAREN */
 		| parametername;
-		
 inparen ::= expression
 		| conditional;		
-		
 conditional ::= expression QUESTION expression COLON expression;
 
 variablename ::= IDENT;
-arrayname ::= IDENT;
+arrayname::= IDENT;
 functionname ::= IDENT;
 parametername ::= IDENT;
 procedurename ::= IDENT;
