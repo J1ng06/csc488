@@ -91,6 +91,7 @@ program
     GOES HERE
 
 ****************************************************************************/
+
 statement 
 		::= statement_redir
 		|	statement_redir statement
