@@ -1,3 +1,7 @@
+src/compiler488/parser/BaseParser.java
+src/compiler488/parser/Lexer.java
+src/compiler488/parser/sym.java
+
 # Created by https://www.gitignore.io/api/eclipse,osx,windows,linux,java
 
 ### Eclipse ###
