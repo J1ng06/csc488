@@ -116,8 +116,8 @@ e4 ::= e3 EQUAL e3
 		| e3 GREATER e3
 		| e3 GREATER EQUAL e3
 		| e3;
-e3 ::= e3 + e2
-		| e3 - e2
+e3 ::= e3 PLUS e2
+		| e3 MINUS e2
 		| e2;
 e2 ::= e2 TIMES e1
 		| e2 DIVIDE e1
@@ -128,16 +128,24 @@ e0 ::= L_PAREN inparen R_PAREN
 		| INTEGER
 		| TRUE
 		| FALSE
+		| IDENT
+		;
+		/*
 		| variablename
 		| functionname
-/*		| functionname L_PAREN arguments R_PAREN */
-		| parametername;
+		| functionname L_PAREN arguments R_PAREN <--
+		| parametername;*/
+				
 inparen ::= expression
 		| conditional;		
+		
 conditional ::= expression QUESTION expression COLON expression;
 
+/*
 variablename ::= IDENT;
 arrayname::= IDENT;
 functionname ::= IDENT;
 parametername ::= IDENT;
 procedurename ::= IDENT;
+*/
+
