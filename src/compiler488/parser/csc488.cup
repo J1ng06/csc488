@@ -47,7 +47,7 @@ terminal String     TEXTCONST;
 nonterminal program, statement, declaration, scope, type, 
 			variable, expression, variablenames, variablename,
 			parameters, functionname, parametername, procedurename,
-			conditional, inparen, e0, e1, e2, e3, e4, e5, e6;
+			conditional, inparen, arguments, e0, e1, e2, e3, e4, e5, e6;
 
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
@@ -129,6 +129,7 @@ e0 ::= L_PAREN inparen R_PAREN
 		| TRUE
 		| FALSE
 		| IDENT
+		| IDENT L_PAREN arguments R_PAREN
 		;
 		/*
 		| variablename
