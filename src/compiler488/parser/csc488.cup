@@ -44,10 +44,16 @@ terminal String     TEXTCONST;
         nonterminal JavaType nameList;
 */
 
-nonterminal program, statement, declaration, scope, type, 
-			variable, expression, variablenames, variablename,
-			parameters, functionname, parametername, procedurename,
-			conditional, arguments, e0, e1, e2, e3, e4, e5, e6;
+nonterminal program, statement, declaration, variablenames, 
+		bound, generalBound, scope, output,
+		input, type, arguments, parameters, 
+		variable, expression, variablename, arrayname,
+		functionname, parametername, procedurename, conditional;
+		
+nonterminal identifier, la_var, la_arr, la_func, la_param, la_proce,
+		parameters_redir, output_redir, variablenames_redir, arguments_redir,
+		input_redir, declaration_redir, expression_redir, statement_redir,
+		id_redir, e0, e1, e2, e3, e4, e5, e6;
 
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
@@ -74,7 +80,9 @@ start with program;
  */
 
 // The main program.
-program ::= scope;
+program 
+		::= scope
+		;
 
 /*****************************************************************************
 
@@ -83,69 +91,202 @@ program ::= scope;
     GOES HERE
 
 ****************************************************************************/
-scope ::= L_CURLEY declaration statement R_CURLEY
-		| L_CURLEY statement R_CURLEY 
-		| L_CURLEY R_CURLEY;
-
-statement ::= variable COLON EQUAL expression
-		| EXIT;
-
-declaration ::= VAR variablenames COLON type
-		| FUNCTION functionname COLON type scope
-		| FUNCTION functionname L_PAREN parameters R_PAREN COLON type scope;
-/*		| declaration declaration;*/
-
-type ::= INTEGER
-		| BOOLEAN;
-	   
-parameters ::= parametername COLON type;
-/*		| parameters; */
-			 
-variable ::= variablenames;
-
-expression ::= expression OR e6
-		| e6
-		| conditional;
-		
-e6 ::= e6 AND e5
-		| e5;
-e5 ::= NOT e4
-		| e4;
-e4 ::= e3 EQUAL e3
-		| e3 NOT EQUAL e3
-		| e3 LESS e3
-		| e3 LESS EQUAL e3
-		| e3 GREATER e3
-		| e3 GREATER EQUAL e3
-		| e3;
-e3 ::= e3 PLUS e2
-		| e3 MINUS e2
-		| e2;
-e2 ::= e2 TIMES e1
-		| e2 DIVIDE e1
-		| e1;
-e1 ::= MINUS e0
-		| e0;
-e0 ::= L_PAREN expression R_PAREN
-		| INTEGER
-		| TRUE
-		| FALSE
-		| IDENT
-		| IDENT L_PAREN arguments R_PAREN
+statement 
+		::= statement_redir
+		|	statement_redir statement
 		;
+		
+statement_redir
+		::= variable COLON EQUAL expression
+		|	IF expression THEN statement
+		|	IF expression THEN statement ELSE statement
+		|	WHILE expression DO statement
+		|	REPEAT statement UNTIL expression
+		| 	EXIT
+		|	EXIT WHEN expression
+		|	EXIT INTCONST WHEN expression
+		|	RETURN WITH expression
+		|	RETURN
+		|	WRITE output
+		|	READ input
+		|	procedurename
+		|	procedurename L_PAREN arguments R_PAREN
+		|	scope
+		|	statement statement
+		;
+
+declaration 
+		::= declaration_redir
+		| 	declaration_redir declaration
+		;
+		
+declaration_redir
+		::= VAR variablenames COLON type
+		| 	FUNCTION functionname COLON type scope
+		| 	FUNCTION functionname L_PAREN parameters R_PAREN COLON type scope
+		;
+
+variablenames 
+		::= variablenames_redir
+		|	variablenames_redir COMMA variablenames
+		;
+		
+variablenames_redir
+		::= variablename
+		| 	variablename L_SQUARE bound R_SQUARE
+		| 	variablename L_SQUARE bound COMMA bound R_SQUARE
+		;
+
+bound 
+		::= INTEGER
+		| 	generalBound DOT DOT generalBound
+		;
+
+generalBound 
+		::= INTEGER
+		| 	MINUS INTEGER
+		;
+		
+scope 
+		::= L_CURLEY declaration statement R_CURLEY
+		| 	L_CURLEY statement R_CURLEY 
+		| 	L_CURLEY R_CURLEY
+		;
+
+output 
+		::= output_redir
+		| 	output_redir COMMA output
+		;
+
+output_redir
+		::= expression
+		|	TEXTCONST
+		|	NEWLINE
+		;
+
+input 
+		::= input_redir
+		| 	input_redir COMMA input
+		;
+		
+input_redir
+		::= variable
+		;
+
+type 
+		::= INTEGER
+		| 	BOOLEAN
+		;
+	   
+arguments 
+		::= arguments_redir
+		| 	arguments_redir COMMA arguments
+		;
+		
+arguments_redir
+		::= expression
+		;
+	   
+parameters 
+		::= parameters_redir
+		| 	parameters_redir COMMA parameters
+		; 
+		
+parameters_redir
+		::= parametername COLON type
+		;
+			 
+variable 
+		::= variablenames
+		| 	arrayname L_SQUARE expression R_SQUARE
+		| 	arrayname L_SQUARE expression COMMA expression R_SQUARE
+		;
+		
+expression
+		::= expression OR e6
+		|	e6
+		|	conditional
+		;
+		
+e6
+		::= e6 AND e5
+		|	e5
+		;
+		
+e5
+		::= NOT e4
+		|	e4
+		;
+		
+e4
+		::= e3 EQUAL e3
+		|	e3 NOT EQUAL e3
+		|	e3 LESS e3
+		|	e3 LESS EQUAL e3
+		|	e3 GREATER e3
+		|	e3 GREATER EQUAL e3
+		|	e3
+		;
+		
+e3
+		::= e3 PLUS e2
+		|	e3 MINUS e2
+		|	e2
+		;
+		
+e2
+		::= e2 TIMES e1
+		|	e2 DIVIDE e1
+		|	e1
+		;
+		
+e1
+		::= MINUS e0
+		|	e0
+		;
+		
+e0
+		::= L_PAREN expression R_PAREN
+		|	INTEGER
+		|	TRUE
+		|	FALSE
+		|	IDENT
+		|	IDENT L_PAREN arguments R_PAREN
+		;
+		
 		/*
 		| variablename
 		| functionname
 		| functionname L_PAREN arguments R_PAREN <--
 		| parametername;*/
 						
-conditional ::= L_PAREN expression QUESTION expression COLON expression R_PAREN;
+conditional
+		::= L_PAREN expression QUESTION expression COLON expression R_PAREN
+		;
 
-/*
-variablename ::= IDENT;
-arrayname::= IDENT;
-functionname ::= IDENT;
-parametername ::= IDENT;
-procedurename ::= IDENT;
+/* 
+variablename 
+		::=	id_redir
+		;
+		
+arrayname 
+		::= IDENT L_SQUARE
+		;
+		
+functionname 
+		::= IDENT COLON
+		|	L_PAREN
+		;
+		
+parametername 
+		::= IDENT la_param
+		;
+		
+procedurename 
+		::= IDENT L_PAREN
+		;
+		
+id_redir
+		::= IDENT
+		;
 */
-
