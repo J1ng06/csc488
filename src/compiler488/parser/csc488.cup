@@ -53,7 +53,8 @@ nonterminal program, statement, declaration, variablenames,
 nonterminal identifier, la_var, la_arr, la_func, la_param, la_proce,
 		parameters_redir, output_redir, variablenames_redir, arguments_redir,
 		input_redir, declaration_redir, expression_redir, statement_redir,
-		id_redir, bound_redir, e0, e1, e2, e3, e4, e5, e6;
+		id_redir, bound_redir, e0, e1, e2, e3, e4, e5, e6, id, bound_int_redir, 
+		gebound_int_redir, exp_int_redir;
 	
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
@@ -64,6 +65,9 @@ nonterminal identifier, la_var, la_arr, la_func, la_param, la_proce,
 
 // precedence left PLUS, MINUS;
 // precedence left TIMES, DIVIDE; // Higher precedence.
+
+precedence nonassoc ELSE, COMMA, REPEAT, WHILE, IF, RETURN, L_CURLEY, IDENT,
+		READ, IF, EXIT, WRITE, R_SQUARE;
 
 /*
     GRAMMAR SECTION
@@ -110,8 +114,8 @@ statement_redir
 		|	RETURN
 		|	WRITE output
 		|	READ input
-		|	IDENT
-		|	IDENT L_PAREN arguments R_PAREN
+		|	id
+		|	id L_PAREN arguments R_PAREN
 		|	scope
 		;
 
@@ -122,8 +126,8 @@ declaration
 		
 declaration_redir
 		::= VAR variablenames COLON type
-		| 	FUNCTION functionname COLON type scope
-		| 	FUNCTION functionname L_PAREN parameters R_PAREN COLON type scope
+		| 	FUNCTION id COLON type scope
+		| 	FUNCTION id L_PAREN parameters R_PAREN COLON type scope
 		;
 
 variablenames 
@@ -132,8 +136,9 @@ variablenames
 		;
 		
 variablenames_redir
-		::= IDENT
-		| 	IDENT L_SQUARE bound_redir R_SQUARE
+		::= id
+		| 	id L_SQUARE bound_redir R_SQUARE
+//		| 	id L_SQUARE bound COMMA bound R_SQUARE
 		;
 		
 bound_redir
@@ -143,13 +148,13 @@ bound_redir
 		;
 
 bound 
-		::= INTEGER
+		::= bound_int_redir
 		| 	generalBound DOT DOT generalBound
 		;
 
 generalBound 
-		::= INTEGER
-		| 	MINUS INTEGER
+		::= gebound_int_redir
+		| 	MINUS INTCONST
 		;
 		
 scope 
@@ -198,13 +203,13 @@ parameters
 		; 
 		
 parameters_redir
-		::= IDENT COLON type
+		::= id COLON type
 		;
 			 
 variable 
 		::= variablenames
-		| 	IDENT L_SQUARE expression R_SQUARE
-		| 	IDENT L_SQUARE expression COMMA expression R_SQUARE
+		| 	id L_SQUARE expression R_SQUARE
+		| 	id L_SQUARE expression COMMA expression R_SQUARE
 		;
 		
 expression
@@ -251,15 +256,31 @@ e1
 		
 e0
 		::= L_PAREN expression R_PAREN
-		|	INTEGER
+		|	exp_int_redir
 		|	TRUE
 		|	FALSE
-		|	IDENT
+		|	id
 		|	IDENT L_PAREN arguments R_PAREN
 		|	L_PAREN expression QUESTION expression COLON expression R_PAREN
 		;
 
-/* 
+bound_int_redir 
+		::= INTCONST R_SQUARE
+		;
+		
+gebound_int_redir
+		::= INTCONST DOT
+		;
+		
+exp_int_redir
+		::= INTCONST
+		;
+
+id
+		::= IDENT
+		;
+
+/*		
 variablename 
 		::=	IDENT la_var
 		;
@@ -279,4 +300,4 @@ parametername
 procedurename 
 		::= IDENT la_proce
 		;
-*/
+*/		
