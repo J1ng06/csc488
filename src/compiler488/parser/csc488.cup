@@ -110,10 +110,9 @@ statement_redir
 		|	RETURN
 		|	WRITE output
 		|	READ input
-		|	procedurename
-		|	procedurename L_PAREN arguments R_PAREN
+		|	IDENT
+		|	IDENT L_PAREN arguments R_PAREN
 		|	scope
-		|	statement statement
 		;
 
 declaration 
@@ -133,9 +132,8 @@ variablenames
 		;
 		
 variablenames_redir
-		::= variablename
-		| 	variablename L_SQUARE bound_redir R_SQUARE
-//		| 	variablename L_SQUARE bound COMMA bound R_SQUARE
+		::= IDENT
+		| 	IDENT L_SQUARE bound_redir R_SQUARE
 		;
 		
 bound_redir
@@ -200,13 +198,13 @@ parameters
 		; 
 		
 parameters_redir
-		::= parametername COLON type
+		::= IDENT COLON type
 		;
 			 
 variable 
 		::= variablenames
-		| 	arrayname L_SQUARE expression R_SQUARE
-		| 	arrayname L_SQUARE expression COMMA expression R_SQUARE
+		| 	IDENT L_SQUARE expression R_SQUARE
+		| 	IDENT L_SQUARE expression COMMA expression R_SQUARE
 		;
 		
 expression
@@ -258,16 +256,7 @@ e0
 		|	FALSE
 		|	IDENT
 		|	IDENT L_PAREN arguments R_PAREN
-		;
-		
-		/*
-		| variablename
-		| functionname
-		| functionname L_PAREN arguments R_PAREN <--
-		| parametername;*/
-						
-conditional
-		::= L_PAREN expression QUESTION expression COLON expression R_PAREN
+		|	L_PAREN expression QUESTION expression COLON expression R_PAREN
 		;
 
 /* 
