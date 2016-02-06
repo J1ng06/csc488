@@ -66,7 +66,7 @@ nonterminal identifier, la_var, la_arr, la_func, la_param, la_proce,
 // precedence left PLUS, MINUS;
 // precedence left TIMES, DIVIDE; // Higher precedence.
 
-precedence nonassoc ELSE, COMMA, REPEAT, WHILE, IF, RETURN, L_CURLEY, IDENT,
+precedence nonassoc ELSE, COMMA, REPEAT, WHILE, DO, IF, RETURN, L_CURLEY, IDENT,
 		READ, IF, EXIT, WRITE, R_SQUARE;
 
 /*
@@ -108,6 +108,7 @@ statement_redir
 		|	WHILE expression DO statement
 		|	REPEAT statement UNTIL expression
 		| 	EXIT
+		|	EXIT INTCONST
 		|	EXIT WHEN expression
 		|	EXIT INTCONST WHEN expression
 		|	RETURN WITH expression
@@ -162,7 +163,7 @@ generalBound
 		;
 		
 scope 
-		::= L_CURLEY declaration statement R_CURLEY
+		::= L_CURLEY declaration statement R_CURLEY 
 		| 	L_CURLEY statement R_CURLEY 
 		| 	L_CURLEY R_CURLEY
 		;
@@ -211,7 +212,7 @@ parameters_redir
 		;
 			 
 variable 
-		::= variablenames
+		::= id
 		| 	id L_SQUARE expression R_SQUARE
 		| 	id L_SQUARE expression COMMA expression R_SQUARE
 		;
@@ -259,21 +260,21 @@ e1
 		;
 		
 e0
-		::= L_PAREN expression R_PAREN
-		|	exp_int_redir
+		::= exp_int_redir
 		|	TRUE
 		|	FALSE
-		|	id
+		|	L_PAREN expression R_PAREN
+		|	variable
 		|	id L_PAREN arguments R_PAREN
 		|	L_PAREN expression QUESTION expression COLON expression R_PAREN
 		;
 
 bound_int_redir 
-		::= INTCONST R_SQUARE
+		::= INTCONST
 		;
 		
 gebound_int_redir
-		::= INTCONST DOT
+		::= INTCONST
 		;
 		
 exp_int_redir
