@@ -44,9 +44,18 @@ terminal String     TEXTCONST;
         nonterminal JavaType nameList;
 */
 
-nonterminal program, statement, declaration, scope, type, 
-			variable, expression, variablenames;
-
+nonterminal program, statement, declaration, variablenames, 
+		bound, generalBound, scope, output,
+		input, type, arguments, parameters, 
+		variable, expression, variablename, arrayname,
+		functionname, parametername, procedurename, conditional;
+		
+nonterminal identifier, la_var, la_arr, la_func, la_param, la_proce,
+		parameters_redir, output_redir, variablenames_redir, arguments_redir,
+		input_redir, declaration_redir, expression_redir, statement_redir,
+		id_redir, bound_redir, e0, e1, e2, e3, e4, e5, e6, id, bound_int_redir, 
+		gebound_int_redir, exp_int_redir;
+	
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
     resolve the precedence of arithmetic operators.
@@ -56,6 +65,9 @@ nonterminal program, statement, declaration, scope, type,
 
 // precedence left PLUS, MINUS;
 // precedence left TIMES, DIVIDE; // Higher precedence.
+
+precedence nonassoc ELSE, COMMA, REPEAT, WHILE, DO, IF, RETURN, L_CURLEY, IDENT,
+		READ, IF, EXIT, WRITE, R_SQUARE;
 
 /*
     GRAMMAR SECTION
@@ -72,7 +84,9 @@ start with program;
  */
 
 // The main program.
-program ::= scope;
+program 
+		::= scope
+		;
 
 /*****************************************************************************
 
@@ -81,31 +95,214 @@ program ::= scope;
     GOES HERE
 
 ****************************************************************************/
-scope ::= L_CURLEY declaration statement R_CURLEY
-		| L_CURLEY statement R_CURLEY 
-		| L_CURLEY R_CURLEY;
 
-statement ::= variable COLON EQUAL expression
-		| EXIT;
+statement 
+		::= statement_redir
+		|	statement_redir statement
+		;
+		
+statement_redir
+		::= variable COLON EQUAL expression
+		|	IF expression THEN statement
+		|	IF expression THEN statement ELSE statement
+		|	WHILE expression DO statement
+		|	REPEAT statement UNTIL expression
+		| 	EXIT
+		|	EXIT INTCONST
+		|	EXIT WHEN expression
+		|	EXIT INTCONST WHEN expression
+		|	RETURN WITH expression
+		|	RETURN
+		|	WRITE output
+		|	READ input
+		|	id
+		|	id L_PAREN arguments R_PAREN
+		|	scope
+		;
 
-declaration ::= VAR variablenames COLON type
-			  | FUNCTION functionname COLON type scope
-			  | FUNCTION functionname L_PAREN parameters R_PAREN COLON type scope
-			  | declaration declaration;
+declaration 
+		::= declaration_redir
+		| 	declaration_redir declaration
+		;
+		
+declaration_redir
+		::= VAR variablenames COLON type
+		| 	FUNCTION id COLON type scope
+		| 	FUNCTION id L_PAREN parameters R_PAREN COLON type scope
+		|	PROCEDURE id scope
+		|	PROCEDURE id L_PAREN parameters R_PAREN scope
+		;
 
-type ::= INTEGER
-	   | BOOLEAN;
+variablenames 
+		::= variablenames_redir
+		|	variablenames_redir COMMA variablenames
+		;
+		
+variablenames_redir
+		::= id
+		| 	id L_SQUARE bound R_SQUARE
+		| 	id L_SQUARE bound COMMA bound R_SQUARE
+		;
+		
+/*
+bound_redir
+		::= 
+		|	bound
+		|	bound COMMA bound
+		;
+*/
+
+bound 
+		::= bound_int_redir
+		| 	generalBound DOT DOT generalBound
+		;
+
+generalBound 
+		::= gebound_int_redir
+		| 	MINUS INTCONST
+		;
+		
+scope 
+		::= L_CURLEY declaration statement R_CURLEY 
+		| 	L_CURLEY statement R_CURLEY 
+		| 	L_CURLEY R_CURLEY
+		;
+
+output 
+		::= output_redir
+		| 	output_redir COMMA output
+		;
+
+output_redir
+		::= expression
+		|	TEXTCONST
+		|	NEWLINE
+		;
+
+input 
+		::= input_redir
+		| 	input_redir COMMA input
+		;
+		
+input_redir
+		::= variable
+		;
+
+type 
+		::= INTEGER
+		| 	BOOLEAN
+		;
 	   
-parameters ::= parametername COLON type;
-			 | parameters 
+arguments 
+		::= arguments_redir
+		| 	arguments_redir COMMA arguments
+		;
+		
+arguments_redir
+		::= expression
+		;
+	   
+parameters 
+		::= parameters_redir
+		| 	parameters_redir COMMA parameters
+		; 
+		
+parameters_redir
+		::= id COLON type
+		;
 			 
-variable ::= variablenames;
+variable 
+		::= id
+		| 	id L_SQUARE expression R_SQUARE
+		| 	id L_SQUARE expression COMMA expression R_SQUARE
+		;
+		
+expression
+		::= expression OR e6
+		|	e6
+		;
+		
+e6
+		::= e6 AND e5
+		|	e5
+		;
+		
+e5
+		::= NOT e4
+		|	e4
+		;
+		
+e4
+		::= e3 EQUAL e3
+		|	e3 NOT EQUAL e3
+		|	e3 LESS e3
+		|	e3 LESS EQUAL e3
+		|	e3 GREATER e3
+		|	e3 GREATER EQUAL e3
+		|	e3
+		;
+		
+e3
+		::= e3 PLUS e2
+		|	e3 MINUS e2
+		|	e2
+		;
+		
+e2 
+		::= e2 TIMES e1
+		|	e2 DIVIDE e1
+		|	e1
+		;
+		
+e1
+		::= MINUS e0
+		|	e0
+		;
+		
+e0
+		::= exp_int_redir
+		|	TRUE
+		|	FALSE
+		|	L_PAREN expression R_PAREN
+		|	variable
+		|	id L_PAREN arguments R_PAREN
+		|	L_PAREN expression QUESTION expression COLON expression R_PAREN
+		;
 
-expression ::= TRUE;
-			 | FALSE;
+bound_int_redir 
+		::= INTCONST
+		;
+		
+gebound_int_redir
+		::= INTCONST
+		;
+		
+exp_int_redir
+		::= INTCONST
+		;
 
-variablename ::= IDENT;
-arrayname::= IDENT;
-functionname ::= IDENT;
-parametername ::= IDENT;
-procedurename ::= IDENT;
+id
+		::= IDENT
+		;
+
+/*		
+variablename 
+		::=	IDENT la_var
+		;
+		
+arrayname 
+		::= IDENT la_arr
+		;
+		
+functionname 
+		::= IDENT la_func
+		;
+		
+parametername 
+		::= IDENT la_param
+		;
+		
+procedurename 
+		::= IDENT la_proce
+		;
+*/		
