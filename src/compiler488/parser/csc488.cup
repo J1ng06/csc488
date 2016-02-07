@@ -45,17 +45,17 @@ terminal String     TEXTCONST;
 */
 
 nonterminal program, statement, declaration, variablenames, 
-		bound, generalBound, scope, output,
-		input, type, arguments, parameters, 
-		variable, expression, variablename, arrayname,
-		functionname, parametername, procedurename, conditional;
-		
+        bound, generalBound, scope, output,
+        input, type, arguments, parameters, 
+        variable, expression, variablename, arrayname,
+        functionname, parametername, procedurename, conditional;
+        
 nonterminal identifier, la_var, la_arr, la_func, la_param, la_proce,
-		parameters_redir, output_redir, variablenames_redir, arguments_redir,
-		input_redir, declaration_redir, expression_redir, statement_redir,
-		id_redir, bound_redir, e0, e1, e2, e3, e4, e5, e6, id, bound_int_redir, 
-		gebound_int_redir, exp_int_redir;
-	
+        parameters_redir, output_redir, variablenames_redir, arguments_redir,
+        input_redir, declaration_redir, expression_redir, statement_redir,
+        id_redir, bound_redir, e0, e1, e2, e3, e4, e5, e6, id, bound_int_redir, 
+        gebound_int_redir, exp_int_redir;
+    
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
     resolve the precedence of arithmetic operators.
@@ -67,7 +67,7 @@ nonterminal identifier, la_var, la_arr, la_func, la_param, la_proce,
 // precedence left TIMES, DIVIDE; // Higher precedence.
 
 precedence nonassoc ELSE, COMMA, REPEAT, WHILE, DO, IF, RETURN, L_CURLEY, IDENT,
-		READ, IF, EXIT, WRITE, R_SQUARE;
+        READ, IF, EXIT, WRITE, R_SQUARE;
 
 /*
     GRAMMAR SECTION
@@ -84,9 +84,9 @@ start with program;
  */
 
 // The main program.
-program 
-		::= scope
-		;
+program
+        ::= scope
+        ;
 
 /*****************************************************************************
 
@@ -96,213 +96,213 @@ program
 
 ****************************************************************************/
 
-statement 
-		::= statement_redir
-		|	statement_redir statement
-		;
-		
-statement_redir
-		::= variable COLON EQUAL expression
-		|	IF expression THEN statement
-		|	IF expression THEN statement ELSE statement
-		|	WHILE expression DO statement
-		|	REPEAT statement UNTIL expression
-		| 	EXIT
-		|	EXIT INTCONST
-		|	EXIT WHEN expression
-		|	EXIT INTCONST WHEN expression
-		|	RETURN WITH expression
-		|	RETURN
-		|	WRITE output
-		|	READ input
-		|	id
-		|	id L_PAREN arguments R_PAREN
-		|	scope
-		;
+statement
+        ::= statement_redir
+        |   statement_redir statement
+        ;
 
-declaration 
-		::= declaration_redir
-		| 	declaration_redir declaration
-		;
-		
+statement_redir                                 /* Makes precedence tests more readable. */
+        ::= variable COLON EQUAL expression     {: System.out.println("---------"); :}
+        |   IF expression THEN statement
+        |   IF expression THEN statement ELSE statement
+        |   WHILE expression DO statement
+        |   REPEAT statement UNTIL expression
+        |   EXIT
+        |   EXIT INTCONST
+        |   EXIT WHEN expression
+        |   EXIT INTCONST WHEN expression
+        |   RETURN WITH expression
+        |   RETURN
+        |   WRITE output
+        |   READ input
+        |   id
+        |   id L_PAREN arguments R_PAREN
+        |   scope
+        ;
+
+declaration
+        ::= declaration_redir
+        |   declaration_redir declaration
+        ;
+
 declaration_redir
-		::= VAR variablenames COLON type
-		| 	FUNCTION id COLON type scope
-		| 	FUNCTION id L_PAREN parameters R_PAREN COLON type scope
-		|	PROCEDURE id scope
-		|	PROCEDURE id L_PAREN parameters R_PAREN scope
-		;
+        ::= VAR variablenames COLON type
+        |   FUNCTION id COLON type scope
+        |   FUNCTION id L_PAREN parameters R_PAREN COLON type scope
+        |   PROCEDURE id scope
+        |   PROCEDURE id L_PAREN parameters R_PAREN scope
+        ;
 
-variablenames 
-		::= variablenames_redir
-		|	variablenames_redir COMMA variablenames
-		;
-		
+variablenames
+        ::= variablenames_redir
+        |   variablenames_redir COMMA variablenames
+        ;
+
 variablenames_redir
-		::= id
-		| 	id L_SQUARE bound R_SQUARE
-		| 	id L_SQUARE bound COMMA bound R_SQUARE
-		;
-		
+        ::= id
+        |   id L_SQUARE bound R_SQUARE
+        |   id L_SQUARE bound COMMA bound R_SQUARE
+        ;
+
 /*
 bound_redir
-		::= 
-		|	bound
-		|	bound COMMA bound
-		;
+        ::= 
+        |   bound
+        |   bound COMMA bound
+        ;
 */
 
-bound 
-		::= bound_int_redir
-		| 	generalBound DOT DOT generalBound
-		;
+bound
+        ::= bound_int_redir
+        |   generalBound DOT DOT generalBound
+        ;
 
-generalBound 
-		::= gebound_int_redir
-		| 	MINUS INTCONST
-		;
-		
-scope 
-		::= L_CURLEY declaration statement R_CURLEY 
-		| 	L_CURLEY statement R_CURLEY 
-		| 	L_CURLEY R_CURLEY
-		;
+generalBound
+        ::= gebound_int_redir
+        |   MINUS INTCONST
+        ;
 
-output 
-		::= output_redir
-		| 	output_redir COMMA output
-		;
+scope
+        ::= L_CURLEY declaration statement R_CURLEY
+        |   L_CURLEY statement R_CURLEY
+        |   L_CURLEY R_CURLEY
+        ;
+
+output
+        ::= output_redir
+        |   output_redir COMMA output
+        ;
 
 output_redir
-		::= expression
-		|	TEXTCONST
-		|	NEWLINE
-		;
+        ::= expression
+        |   TEXTCONST
+        |   NEWLINE
+        ;
 
-input 
-		::= input_redir
-		| 	input_redir COMMA input
-		;
-		
+input
+        ::= input_redir
+        |   input_redir COMMA input
+        ;
+
 input_redir
-		::= variable
-		;
+        ::= variable
+        ;
 
-type 
-		::= INTEGER
-		| 	BOOLEAN
-		;
-	   
-arguments 
-		::= arguments_redir
-		| 	arguments_redir COMMA arguments
-		;
-		
+type
+        ::= INTEGER
+        |   BOOLEAN
+        ;
+
+arguments
+        ::= arguments_redir
+        |   arguments_redir COMMA arguments
+        ;
+
 arguments_redir
-		::= expression
-		;
-	   
-parameters 
-		::= parameters_redir
-		| 	parameters_redir COMMA parameters
-		; 
-		
-parameters_redir
-		::= id COLON type
-		;
-			 
-variable 
-		::= id
-		| 	id L_SQUARE expression R_SQUARE
-		| 	id L_SQUARE expression COMMA expression R_SQUARE
-		;
-		
-expression
-		::= expression OR e6
-		|	e6
-		;
-		
-e6
-		::= e6 AND e5
-		|	e5
-		;
-		
-e5
-		::= NOT e4
-		|	e4
-		;
-		
-e4
-		::= e3 EQUAL e3
-		|	e3 NOT EQUAL e3
-		|	e3 LESS e3
-		|	e3 LESS EQUAL e3
-		|	e3 GREATER e3
-		|	e3 GREATER EQUAL e3
-		|	e3
-		;
-		
-e3
-		::= e3 PLUS e2
-		|	e3 MINUS e2
-		|	e2
-		;
-		
-e2 
-		::= e2 TIMES e1
-		|	e2 DIVIDE e1
-		|	e1
-		;
-		
-e1
-		::= MINUS e0
-		|	e0
-		;
-		
-e0
-		::= exp_int_redir
-		|	TRUE
-		|	FALSE
-		|	L_PAREN expression R_PAREN
-		|	variable
-		|	id L_PAREN arguments R_PAREN
-		|	L_PAREN expression QUESTION expression COLON expression R_PAREN
-		;
+        ::= expression
+        ;
 
-bound_int_redir 
-		::= INTCONST
-		;
-		
+parameters
+        ::= parameters_redir
+        |   parameters_redir COMMA parameters
+        ; 
+
+parameters_redir
+        ::= id COLON type
+        ;
+
+variable 
+        ::= id
+        |   id L_SQUARE expression R_SQUARE
+        |   id L_SQUARE expression COMMA expression R_SQUARE
+        ;
+
+expression
+        ::= expression OR e6        {: System.out.println("OR"); :}
+        |   e6
+        ;
+
+e6
+        ::= e6 AND e5               {: System.out.println("AND"); :}
+        |   e5
+        ;
+
+e5
+        ::= NOT e4                  {: System.out.println("NOT"); :}
+        |   e4
+        ;
+
+e4
+        ::= e3 EQUAL e3             {: System.out.println("EQUAL"); :}
+        |   e3 NOT EQUAL e3         {: System.out.println("NOT EQUAL"); :}
+        |   e3 LESS e3              {: System.out.println("LESS"); :}
+        |   e3 LESS EQUAL e3        {: System.out.println("LESS EQUAL"); :}
+        |   e3 GREATER e3           {: System.out.println("GREATER"); :}
+        |   e3 GREATER EQUAL e3     {: System.out.println("GREATER EQUAL"); :}
+        |   e3
+        ;
+
+e3
+        ::= e3 PLUS e2              {: System.out.println("PLUS"); :}
+        |   e3 MINUS e2             {: System.out.println("MINUS"); :}
+        |   e2
+        ;
+
+e2
+        ::= e2 TIMES e1             {: System.out.println("TIMES"); :}
+        |   e2 DIVIDE e1            {: System.out.println("DIVIDE"); :}
+        |   e1
+        ;
+
+e1
+        ::= MINUS e0                {: System.out.println("UMINUS"); :}
+        |   e0
+        ;
+
+e0
+        ::= exp_int_redir
+        |   TRUE
+        |   FALSE
+        |   L_PAREN expression R_PAREN
+        |   variable
+        |   id L_PAREN arguments R_PAREN
+        |   L_PAREN expression QUESTION expression COLON expression R_PAREN
+        ;
+
+bound_int_redir
+        ::= INTCONST
+        ;
+
 gebound_int_redir
-		::= INTCONST
-		;
-		
+        ::= INTCONST
+        ;
+
 exp_int_redir
-		::= INTCONST
-		;
+        ::= INTCONST
+        ;
 
 id
-		::= IDENT
-		;
+        ::= IDENT
+        ;
 
-/*		
-variablename 
-		::=	IDENT la_var
-		;
-		
-arrayname 
-		::= IDENT la_arr
-		;
-		
-functionname 
-		::= IDENT la_func
-		;
-		
-parametername 
-		::= IDENT la_param
-		;
-		
-procedurename 
-		::= IDENT la_proce
-		;
-*/		
+/*      
+variablename
+        ::= IDENT la_var
+        ;
+
+arrayname
+        ::= IDENT la_arr
+        ;
+
+functionname
+        ::= IDENT la_func
+        ;
+
+parametername
+        ::= IDENT la_param
+        ;
+
+procedurename
+        ::= IDENT la_proce
+        ;
+*/
