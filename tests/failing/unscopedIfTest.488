@@ -1,0 +1,10 @@
+% Test program for the case where an if-then statement is followed by two
+% statements not within a scope.
+{
+    if 3 > 2
+    then
+        write "This line is fine.", newline
+        write "This line produces a parse error.", newline
+    else
+        write "never reached."
+}
