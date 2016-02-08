@@ -44,17 +44,12 @@ terminal String     TEXTCONST;
         nonterminal JavaType nameList;
 */
 
-nonterminal program, statement, declaration, variablenames, 
-        bound, generalBound, scope, output,
-        input, type, arguments, parameters, 
-        variable, expression, variablename, arrayname,
-        functionname, parametername, procedurename, conditional;
+nonterminal program, statement, declaration, variablenames, bound, generalBound,
+        scope, output, input, type, arguments, parameters, variable, expression;
         
-nonterminal identifier, la_var, la_arr, la_func, la_param, la_proce,
-        parameters_redir, output_redir, variablenames_redir, arguments_redir,
-        input_redir, declaration_redir, expression_redir, statement_redir,
-        id_redir, bound_redir, e0, e1, e2, e3, e4, e5, e6, id, bound_int_redir, 
-        gebound_int_redir, exp_int_redir;
+nonterminal parameters_redir, output_redir, variablenames_redir, arguments_redir,
+        input_redir, declaration_redir, statement_redir, e0, e1, e2, e3, e4, e5,
+        e6, id, bound_int_redir, gebound_int_redir, exp_int_redir;
     
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
