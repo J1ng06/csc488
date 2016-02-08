@@ -98,9 +98,9 @@ statement
 
 statement_redir                                 /* Makes precedence tests more readable. */
         ::= variable COLON EQUAL expression     {: System.out.println("---------"); :}
-        |   IF expression THEN statement
-        |   IF expression THEN statement ELSE statement
-        |   WHILE expression DO statement
+        |   IF expression THEN statement_redir
+        |   IF expression THEN statement_redir ELSE statement_redir
+        |   WHILE expression DO statement_redir
         |   REPEAT statement UNTIL expression
         |   EXIT
         |   EXIT INTCONST

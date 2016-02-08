@@ -1,0 +1,5 @@
+% File to test the accidental use of a semicolon to end a line
+{
+    var foo : integer
+    foo := 0;           % Expect an illegal character error.
+}
