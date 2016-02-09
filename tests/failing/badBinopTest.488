@@ -1,0 +1,5 @@
+% Tests that binary operations don't parse when missing an operand
+{
+    var num : integer
+    num := 3 *
+}
