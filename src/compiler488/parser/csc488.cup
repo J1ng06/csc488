@@ -95,7 +95,7 @@ statement
         ;
 
 statement_redir                                 /* Makes precedence tests more readable. */
-        ::= variable COLON EQUAL expression     {: System.out.println("---------"); :}
+        ::= variable COLON EQUAL expression     //{: System.out.println("---------"); :}
         |   IF expression THEN statement_redir
         |   IF expression THEN statement_redir ELSE statement_redir
         |   WHILE expression DO statement_redir
@@ -191,44 +191,44 @@ variable
         ;
 
 expression
-        ::= expression OR e6        {: System.out.println("OR"); :}
+        ::= expression OR e6        //{: System.out.println("OR"); :}
         |   e6
         ;
 
 e6
-        ::= e6 AND e5               {: System.out.println("AND"); :}
+        ::= e6 AND e5               //{: System.out.println("AND"); :}
         |   e5
         ;
 
 e5
-        ::= NOT e4                  {: System.out.println("NOT"); :}
+        ::= NOT e4                  //{: System.out.println("NOT"); :}
         |   e4
         ;
 
 e4
-        ::= e3 EQUAL e3             {: System.out.println("EQUAL"); :}
-        |   e3 NOT EQUAL e3         {: System.out.println("NOT EQUAL"); :}
-        |   e3 LESS e3              {: System.out.println("LESS"); :}
-        |   e3 LESS EQUAL e3        {: System.out.println("LESS EQUAL"); :}
-        |   e3 GREATER e3           {: System.out.println("GREATER"); :}
-        |   e3 GREATER EQUAL e3     {: System.out.println("GREATER EQUAL"); :}
+        ::= e3 EQUAL e3             //{: System.out.println("EQUAL"); :}
+        |   e3 NOT EQUAL e3         //{: System.out.println("NOT EQUAL"); :}
+        |   e3 LESS e3              //{: System.out.println("LESS"); :}
+        |   e3 LESS EQUAL e3        //{: System.out.println("LESS EQUAL"); :}
+        |   e3 GREATER e3           //{: System.out.println("GREATER"); :}
+        |   e3 GREATER EQUAL e3     //{: System.out.println("GREATER EQUAL"); :}
         |   e3
         ;
 
 e3
-        ::= e3 PLUS e2              {: System.out.println("PLUS"); :}
-        |   e3 MINUS e2             {: System.out.println("MINUS"); :}
+        ::= e3 PLUS e2              //{: System.out.println("PLUS"); :}
+        |   e3 MINUS e2             //{: System.out.println("MINUS"); :}
         |   e2
         ;
 
 e2
-        ::= e2 TIMES e1             {: System.out.println("TIMES"); :}
-        |   e2 DIVIDE e1            {: System.out.println("DIVIDE"); :}
+        ::= e2 TIMES e1             //{: System.out.println("TIMES"); :}
+        |   e2 DIVIDE e1            //{: System.out.println("DIVIDE"); :}
         |   e1
         ;
 
 e1
-        ::= MINUS e0                {: System.out.println("UMINUS"); :}
+        ::= MINUS e0                //{: System.out.println("UMINUS"); :}
         |   e0
         ;
 
