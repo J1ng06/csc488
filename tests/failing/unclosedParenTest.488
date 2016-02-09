@@ -1,0 +1,5 @@
+% Tests an unmatched left paren for failure.
+{
+    var num : integer
+    num := (3 * 5
+}

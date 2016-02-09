@@ -1,0 +1,5 @@
+% Checks that conditional operators do not associate.
+{
+    var bool : boolean
+    bool := 3 = 3 = 3
+}

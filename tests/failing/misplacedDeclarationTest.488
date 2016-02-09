@@ -1,0 +1,6 @@
+% Tests that declarations after statements don't parse
+{
+    write "This is a statement", newline
+
+    var num : integer
+}

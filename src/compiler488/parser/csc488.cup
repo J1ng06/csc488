@@ -49,7 +49,7 @@ nonterminal program, statement, declaration, variablenames, bound, generalBound,
         
 nonterminal parameters_redir, output_redir, variablenames_redir, arguments_redir,
         input_redir, declaration_redir, statement_redir, e0, e1, e2, e3, e4, e5,
-        e6 /*bound_int_redir, gebound_int_redir, exp_int_redir*/;
+        e6;
     
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
@@ -61,8 +61,7 @@ nonterminal parameters_redir, output_redir, variablenames_redir, arguments_redir
 // precedence left PLUS, MINUS;
 // precedence left TIMES, DIVIDE; // Higher precedence.
 
-precedence nonassoc ELSE/*, COMMA, REPEAT, WHILE, DO, IF, RETURN, L_CURLEY, IDENT,
-        READ, IF, EXIT, WRITE, R_SQUARE*/;
+precedence nonassoc ELSE;
 
 /*
     GRAMMAR SECTION
@@ -255,19 +254,5 @@ e0
         |   IDENT L_PAREN arguments R_PAREN
         |   L_PAREN expression QUESTION expression COLON expression R_PAREN
         ;
-/*
-bound_int_redir
-        ::= INTCONST
-        ;
-
-gebound_int_redir
-        ::= INTCONST
-        ;
-
-exp_int_redir
-        ::= INTCONST
-        ;
-
-*/
 
 
