@@ -186,8 +186,8 @@ parameters
 
 variable 
         ::= IDENT
-        |   IDENT L_SQUARE bound R_SQUARE
-        |   IDENT L_SQUARE bound COMMA bound R_SQUARE
+        |   IDENT L_SQUARE expression R_SQUARE
+        |   IDENT L_SQUARE expression COMMA expression R_SQUARE
         ;
 
 expression
