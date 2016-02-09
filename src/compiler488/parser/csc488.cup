@@ -47,9 +47,8 @@ terminal String     TEXTCONST;
 nonterminal program, statement, declaration, variablenames, bound, generalBound,
         scope, output, input, type, arguments, parameters, variable, expression;
         
-nonterminal parameters_redir, output_redir, variablenames_redir, arguments_redir,
-        input_redir, declaration_redir, statement_redir, e0, e1, e2, e3, e4, e5,
-        e6;
+nonterminal output_redir, variablenames_redir, declaration_redir, 
+		statement_redir, e0, e1, e2, e3, e4, e5, e6;
     
 /*
     PLEASE NOTE: Your grammar may not use the 'precedence' feature of JCup to
@@ -166,12 +165,8 @@ output_redir
         ;
 
 input
-        ::= input_redir
-        |   input_redir COMMA input
-        ;
-
-input_redir
         ::= variable
+        |   variable COMMA input
         ;
 
 type
@@ -180,22 +175,14 @@ type
         ;
 
 arguments
-        ::= arguments_redir
-        |   arguments_redir COMMA arguments
-        ;
-
-arguments_redir
         ::= expression
+        |   expression COMMA arguments
         ;
 
 parameters
-        ::= parameters_redir
-        |   parameters_redir COMMA parameters
-        ; 
-
-parameters_redir
         ::= IDENT COLON type
-        ;
+        |   IDENT COLON type COMMA parameters
+        ; 
 
 variable 
         ::= IDENT
