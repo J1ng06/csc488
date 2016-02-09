@@ -61,8 +61,8 @@ nonterminal parameters_redir, output_redir, variablenames_redir, arguments_redir
 // precedence left PLUS, MINUS;
 // precedence left TIMES, DIVIDE; // Higher precedence.
 
-precedence nonassoc ELSE, COMMA, REPEAT, WHILE, DO, IF, RETURN, L_CURLEY, IDENT,
-        READ, IF, EXIT, WRITE, R_SQUARE;
+precedence nonassoc ELSE; //, COMMA, REPEAT, WHILE, DO, IF, RETURN, L_CURLEY, IDENT,
+        // READ, IF, EXIT, WRITE, R_SQUARE;
 
 /*
     GRAMMAR SECTION

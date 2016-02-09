@@ -1,0 +1,4 @@
+% Tests that just an expression fails to parse.
+{
+    4 <= 5
+}
