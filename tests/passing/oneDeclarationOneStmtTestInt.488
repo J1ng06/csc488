@@ -1,4 +1,0 @@
-{ 
-var num : integer
-num := 5
-}
