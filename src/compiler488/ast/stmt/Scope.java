@@ -33,6 +33,16 @@ public class Scope extends Stmt {
 		return statements;
 	}
 
+	public Scope appendStmt(Stmt s) {
+		statements.append(s);
+		return this;
+	}
+
+	public Scope appendDecl(Declaration decl) {
+		declarations.append(decl);
+		return this;
+	}
+
 	@Override
 	public void prettyPrint(PrettyPrinter p) {
 		p.println(" { ");
