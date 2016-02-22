@@ -4,6 +4,12 @@
 
 package compiler488.parser;
 
+import compiler488.ast.*;
+import compiler488.ast.decl.*;
+import compiler488.ast.expn.*;
+import compiler488.ast.stmt.*;
+import compiler488.ast.type.*;
+
 // TODO: You can add Java import statements here as necessary
 
 /*
@@ -46,11 +52,11 @@ terminal String     TEXTCONST;
 
  
 nonterminal program;
-nonterminal statement;
-nonterminal declaration;
-nonterminal scope;
-nonterminal statements;
-nonterminal declarations;
+nonterminal Stmt statement;
+nonterminal Declaration declaration;
+nonterminal Scope scope;
+nonterminal ASTList<Stmt> statements;
+nonterminal ASTList<Declaration> declarations;
 nonterminal matchedStatement;
 nonterminal unmatchedStatement;
 nonterminal variablenames;
@@ -59,7 +65,7 @@ nonterminal type;
 nonterminal arguments;
 nonterminal parameters;
 nonterminal variable;
-nonterminal expression;
+nonterminal Expn expression;
 nonterminal variablename;
 nonterminal inputs;
 nonterminal outputs;
