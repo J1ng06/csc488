@@ -110,7 +110,9 @@ start with program;
     will act on the production.
  */
 
-program ::= scope                           // the main program
+// The main program
+program ::= scope:s
+            {: RESULT = new Program(s); :}
     ;
 
 scope
