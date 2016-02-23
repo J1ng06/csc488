@@ -8,6 +8,11 @@ public class ConditionalExpn extends Expn {
 
 	private Expn falseValue; // Otherwise, the value is this.
 
+	public ConditionalExpn (Expn cond, Expn ifTrue, Expn ifFalse) {
+		condition = cond;
+		trueValue = ifTrue;
+		falseValue = ifFalse;
+	}
 	/** Returns a string that describes the conditional expression. */
 	@Override
 	public String toString() {

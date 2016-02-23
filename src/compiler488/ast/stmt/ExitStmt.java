@@ -12,6 +12,10 @@ public class ExitStmt extends Stmt {
 	/** Number of levels to exit. */
 	private Integer level = -1;
 
+	public ExitStmt(Expn cond, Integer level){
+		expn = cond;
+		this.level = level;
+	}
 	/**
 	 * Returns the string <b>"exit"</b> or <b>"exit when e"</b>" or
 	 * <b>"exit"</b> level or <b>"exit"</b> level when e
