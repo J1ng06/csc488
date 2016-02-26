@@ -115,8 +115,7 @@ program ::= scope:s		{: RESULT = new Program(s); :}                           //
     ;
 
 scope
-    ::= L_CURLEY declarations:decl statements:stmt R_CURLEY   	{: RESULT = new Scope();
-    RESULT.setDeclarations(decl); RESULT.setStatements(stmt); :} // scope with declarations and statements
+    ::= L_CURLEY declarations:decl statements:stmt R_CURLEY   	{: RESULT = new Scope((ASTList<Declaration>) decl, (ASTList<Stmt>) stmt); :} // scope with declarations and statements
     |   L_CURLEY statements:stmt R_CURLEY                {: RESULT = new Scope(); RESULT.setStatements(stmt); :} // scope with statements only
     |   L_CURLEY R_CURLEY                           {: RESULT = new Scope(); :} // empty scope
     ;

@@ -531,7 +531,7 @@ public class Main {
 		}
 
 		// Dump AST after parsing if requested
-		if (dumpAST1) {
+		if (true) {
 			dumpAST(programAST, "Exception during AST dump after AST building");
 		}
 
