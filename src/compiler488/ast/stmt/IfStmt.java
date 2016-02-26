@@ -1,6 +1,5 @@
 package compiler488.ast.stmt;
 
-import compiler488.ast.ASTList;
 import compiler488.ast.PrettyPrinter;
 import compiler488.ast.expn.Expn;
 
@@ -12,12 +11,12 @@ public class IfStmt extends Stmt {
 	private Expn condition;
 
 	/** Represents the statement to execute when the condition is true. */
-	private ASTList<Stmt> whenTrue;
+	private Stmt whenTrue;
 
 	/** Represents the statement to execute when the condition is false. */
-	private ASTList<Stmt> whenFalse = null;
+	private Stmt whenFalse = null;
 
-	public IfStmt(Expn condition, ASTList<Stmt> whenTrue, ASTList<Stmt> whenFalse) {
+	public IfStmt(Expn condition, Stmt whenTrue, Stmt whenFalse) {
 		super();
 
 		this.condition = condition;
@@ -25,7 +24,7 @@ public class IfStmt extends Stmt {
 		this.whenFalse = whenFalse;
 	}
 
-	public IfStmt(Expn condition, ASTList<Stmt> whenTrue) {
+	public IfStmt(Expn condition, Stmt whenTrue) {
 		this(condition, whenTrue, null);
 	}
 
@@ -33,11 +32,11 @@ public class IfStmt extends Stmt {
 		return condition;
 	}
 
-	public ASTList<Stmt> getWhenTrue() {
+	public Stmt getWhenTrue() {
 		return whenTrue;
 	}
 
-	public ASTList<Stmt> getWhenFalse() {
+	public Stmt getWhenFalse() {
 		return whenFalse;
 	}
 
@@ -51,11 +50,11 @@ public class IfStmt extends Stmt {
 		p.print("if ");
 		condition.prettyPrint(p);
 		p.println(" then");
-		whenTrue.prettyPrintBlock(p);
+		whenTrue.prettyPrint(p);
 
 		if (whenFalse != null) {
 			p.println(" else");
-			whenFalse.prettyPrintBlock(p);
+			whenFalse.prettyPrint(p);
 		}
 
 		p.println("end");
