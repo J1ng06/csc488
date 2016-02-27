@@ -57,6 +57,6 @@ public class IfStmt extends Stmt {
 			whenFalse.prettyPrint(p);
 		}
 
-		p.println("end");
+		p.println(" end");
 	}
 }
