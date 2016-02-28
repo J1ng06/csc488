@@ -15,5 +15,7 @@ package compiler488.ast;
  * @see compiler488.ast.BaseAST
  */
 public interface AST extends PrettyPrintable {
+	public int getLine();
+	public int getColumn();
 	public void prettyPrint(PrettyPrinter p);
 }

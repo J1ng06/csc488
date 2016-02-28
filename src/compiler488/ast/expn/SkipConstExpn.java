@@ -7,8 +7,8 @@ import compiler488.ast.Printable;
  * character on the output device.
  */
 public class SkipConstExpn extends ConstExpn implements Printable {
-	public SkipConstExpn() {
-		super();
+	public SkipConstExpn(int line, int column) {
+		super(line, column);
 	}
 
 	@Override

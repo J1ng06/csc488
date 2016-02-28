@@ -12,14 +12,16 @@ public class Scope extends Stmt {
 	protected ASTList<Declaration> declarations;
 	protected ASTList<Stmt> statements;
 
-	public Scope() {
+	public Scope(int line, int column) {
+		super(line, column);
 		declarations = new ASTList<Declaration>();
 		statements = new ASTList<Stmt>();
 	}
 	
-	public Scope(ASTList<Declaration> decl, ASTList<Stmt> statements){
-		setDeclarations(decl);
-		setStatements(statements);
+	public Scope(ASTList<Declaration> decl, ASTList<Stmt> statements, int line, int column){
+		super(line, column);
+		this.setDeclarations(decl);
+		this.setStatements(statements);
 	}
 
 	public void setDeclarations(ASTList<Declaration> declarations) {

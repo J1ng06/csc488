@@ -21,15 +21,15 @@ public class ProcedureCallStmt extends Stmt {
 	 */
 	private ASTList<Expn> arguments;
 
-	public ProcedureCallStmt(String name, ASTList<Expn> arguments) {
-		super();
+	public ProcedureCallStmt(String name, ASTList<Expn> arguments, int line, int column) {
+		super(line, column);
 
 		this.name = name;
 		this.arguments = arguments;
 	}
 
-	public ProcedureCallStmt(String name) {
-		this(name, new ASTList<Expn>());
+	public ProcedureCallStmt(String name, int line, int column) {
+		this(name, new ASTList<Expn>(),line, column);
 	}
 
 	public String getName() {

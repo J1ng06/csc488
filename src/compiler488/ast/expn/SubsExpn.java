@@ -17,8 +17,8 @@ public class SubsExpn extends Expn implements Readable {
 	private Expn subscript2 = null;
 
 	/** Subscript 2 dimensional array */
-	public SubsExpn(String variable, Expn subscript1, Expn subscript2) {
-		super();
+	public SubsExpn(String variable, Expn subscript1, Expn subscript2, int line, int column) {
+		super(line, column);
 
 		this.variable = variable;
 		this.subscript1 = subscript1;
@@ -26,8 +26,8 @@ public class SubsExpn extends Expn implements Readable {
 	}
 
 	/** Subscript 1 dimensional array */
-	public SubsExpn(String variable, Expn subscript1) {
-		this(variable, subscript1, null);
+	public SubsExpn(String variable, Expn subscript1, int line, int column) {
+		this(variable, subscript1, null, line, column);
 	}
 
 	public String getVariable() {

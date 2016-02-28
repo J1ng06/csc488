@@ -10,8 +10,8 @@ public class CompareExpn extends BinaryExpn {
     public final static String OP_GREATER 		= ">";
     public final static String OP_GREATER_EQUAL	= ">=";
 
-    public CompareExpn(String opSymbol, Expn left, Expn right) {
-        super(opSymbol, left, right);
+    public CompareExpn(String opSymbol, Expn left, Expn right, int line, int column) {
+        super(opSymbol, left, right, line, column);
 
         assert ((opSymbol == OP_LESS) ||
                 (opSymbol == OP_LESS_EQUAL) ||

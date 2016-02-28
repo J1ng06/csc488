@@ -8,8 +8,8 @@ public class EqualsExpn extends BinaryExpn {
     public final static String OP_EQUAL 	= "=";
     public final static String OP_NOT_EQUAL	= "not =";
 
-    public EqualsExpn(String opSymbol, Expn left, Expn right) {
-        super(opSymbol, left, right);
+    public EqualsExpn(String opSymbol, Expn left, Expn right, int line, int column) {
+        super(opSymbol, left, right, line, column);
 
         assert ((opSymbol == OP_EQUAL) ||
                 (opSymbol == OP_NOT_EQUAL));

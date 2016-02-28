@@ -12,7 +12,8 @@ public class ExitStmt extends Stmt {
 	/** Number of levels to exit. */
 	private Integer level = -1;
 
-	public ExitStmt(Expn cond, Integer level){
+	public ExitStmt(Expn cond, Integer level, int line, int column){
+		super(line, column);
 		expn = cond;
 		this.level = level;
 	}

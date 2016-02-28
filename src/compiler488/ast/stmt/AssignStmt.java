@@ -13,8 +13,8 @@ public class AssignStmt extends Stmt {
 	/** The value being assigned. */
 	private Expn rval;
 
-	public AssignStmt(Expn lval, Expn rval) {
-		super();
+	public AssignStmt(Expn lval, Expn rval, int line, int column) {
+		super(line, column);
 
 		this.lval = lval;
 		this.rval = rval;

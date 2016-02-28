@@ -9,8 +9,8 @@ public class TextConstExpn extends ConstExpn implements Printable {
 	/** The value of this literal. */
 	private String value;
 
-	public TextConstExpn(String value) {
-		super();
+	public TextConstExpn(String value, int line, int column) {
+		super(line, column);
 
 		this.value = value;
 	}

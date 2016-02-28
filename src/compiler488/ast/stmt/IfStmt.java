@@ -16,16 +16,16 @@ public class IfStmt extends Stmt {
 	/** Represents the statement to execute when the condition is false. */
 	private Stmt whenFalse = null;
 
-	public IfStmt(Expn condition, Stmt whenTrue, Stmt whenFalse) {
-		super();
+	public IfStmt(Expn condition, Stmt whenTrue, Stmt whenFalse, int line, int column) {
+		super(line, column);
 
 		this.condition = condition;
 		this.whenTrue = whenTrue;
 		this.whenFalse = whenFalse;
 	}
 
-	public IfStmt(Expn condition, Stmt whenTrue) {
-		this(condition, whenTrue, null);
+	public IfStmt(Expn condition, Stmt whenTrue, int line, int column) {
+		this(condition, whenTrue, null, line, column);
 	}
 
 	public Expn getCondition() {

@@ -6,7 +6,8 @@ public class ArrayBoundPart extends BaseAST{
 	private Integer lb;
 	private Integer ub;
 	
-	public ArrayBoundPart(int lb, int ub) {
+	public ArrayBoundPart(int lb, int ub, int line, int column) {
+		super(line, column);
 		this.setLb(lb);
 		this.setUb(ub);
 	}

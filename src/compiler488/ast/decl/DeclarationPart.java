@@ -9,8 +9,8 @@ public abstract class DeclarationPart extends BaseAST {
 	/** The name of the thing being declared. */
 	protected String name;
 
-	public DeclarationPart(String name) {
-		super();
+	public DeclarationPart(String name, int line, int column) {
+		super(line, column);
 
 		this.name = name;
 	}

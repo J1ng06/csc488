@@ -19,6 +19,7 @@ import java.util.LinkedList;
  */
 public class ASTList<E extends AST> extends LinkedList<E> implements AST {
 	private static final long serialVersionUID = 1L;
+	private static final int UNDEFINED = -1;
 
 	/**
 	 * Create an empty AST list
@@ -57,6 +58,13 @@ public class ASTList<E extends AST> extends LinkedList<E> implements AST {
 
 		return this;
 	}
+    public int getLine() {
+    	return isEmpty() ? UNDEFINED : getFirst().getLine();
+    }
+    
+    public int getColumn() {
+    	return isEmpty() ? UNDEFINED : getFirst().getColumn();
+    }
 
 	/**
 	 * By default, pretty-print the list with one element per line.

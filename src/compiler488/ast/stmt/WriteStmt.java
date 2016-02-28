@@ -11,8 +11,8 @@ public class WriteStmt extends Stmt {
 	/** The objects to be printed. */
 	private ASTList<Printable> outputs;
 
-	public WriteStmt(ASTList<Printable> outputs) {
-		super();
+	public WriteStmt(ASTList<Printable> outputs, int line, int column) {
+		super(line, column);
 		this.outputs = outputs;
 	}
 

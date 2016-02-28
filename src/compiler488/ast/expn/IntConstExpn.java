@@ -9,8 +9,8 @@ public class IntConstExpn extends ConstExpn {
 	 */
 	private Integer value;
 
-	public IntConstExpn(Integer value) {
-		super();
+	public IntConstExpn(Integer value, int line, int column) {
+		super(line, column);
 
 		this.value = value;
 	}

@@ -8,8 +8,8 @@ import compiler488.ast.expn.Expn;
  * Represents a loop in which the exit condition is evaluated after each pass.
  */
 public class RepeatUntilStmt extends LoopingStmt {
-	public RepeatUntilStmt(Expn expn, ASTList<Stmt> body) {
-		super(expn, body);
+	public RepeatUntilStmt(Expn expn, ASTList<Stmt> body, int line, int column) {
+		super(expn, body, line, column);
 	}
 
 	@Override

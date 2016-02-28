@@ -10,7 +10,8 @@ public class ConditionalExpn extends Expn {
 
 	private Expn falseValue; // Otherwise, the value is this.
 
-	public ConditionalExpn (Expn cond, Expn ifTrue, Expn ifFalse) {
+	public ConditionalExpn (Expn cond, Expn ifTrue, Expn ifFalse, int line, int column) {
+		super(line, column);
 		condition = cond;
 		trueValue = ifTrue;
 		falseValue = ifFalse;

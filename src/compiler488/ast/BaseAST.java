@@ -15,7 +15,18 @@ public abstract class BaseAST implements AST {
 	 * Add additional information to your AST tree nodes here.
 	 * </p>
 	 */
-	public BaseAST() {
+	private int line;
+	private int column;
+	public BaseAST(int line, int column) {
+		this.line = line;
+		this.column = column;
+	}
+	
+	public int getLine(){
+		return line;
+	}
+	public int getColumn(){
+		return column;
 	}
 
 	/**

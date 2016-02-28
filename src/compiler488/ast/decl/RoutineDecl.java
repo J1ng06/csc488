@@ -34,8 +34,8 @@ public class RoutineDecl extends Declaration {
 	 * @param body
 	 *            Body scope for the routine
 	 */
-	public RoutineDecl(String name, Type type, ASTList<ScalarDecl> parameters, Scope body) {
-		super(name, type);
+	public RoutineDecl(String name, Type type, ASTList<ScalarDecl> parameters, Scope body, int line, int column) {
+		super(name, type, line, column);
 
 		this.parameters = parameters;
 		this.body = body;
@@ -51,8 +51,8 @@ public class RoutineDecl extends Declaration {
 	 * @param body
 	 *            Body scope for the routine
 	 */
-	public RoutineDecl(String name, Type type, Scope body) {
-		this(name, type, new ASTList<ScalarDecl>(), body);
+	public RoutineDecl(String name, Type type, Scope body, int line, int column) {
+		this(name, type, new ASTList<ScalarDecl>(), body, line, column);
 	}
 
 	/**
@@ -65,8 +65,8 @@ public class RoutineDecl extends Declaration {
 	 * @param body
 	 *            Body scope for the routine
 	 */
-	public RoutineDecl(String name, ASTList<ScalarDecl> parameters, Scope body) {
-		this(name, null, parameters, body);
+	public RoutineDecl(String name, ASTList<ScalarDecl> parameters, Scope body, int line, int column) {
+		this(name, null, parameters, body, line, column);
 
 		this.parameters = parameters;
 		this.body = body;
@@ -80,8 +80,8 @@ public class RoutineDecl extends Declaration {
 	 * @param body
 	 *            Body scope for the routine
 	 */
-	public RoutineDecl(String name, Scope body) {
-		this(name, null, new ASTList<ScalarDecl>(), body);
+	public RoutineDecl(String name, Scope body, int line, int column) {
+		this(name, null, new ASTList<ScalarDecl>(), body, line, column);
 	}
 
 	public ASTList<ScalarDecl> getParameters() {

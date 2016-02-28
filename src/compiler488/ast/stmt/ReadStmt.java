@@ -11,8 +11,8 @@ public class ReadStmt extends Stmt {
 	/** A list of locations to put the values read. */
 	private ASTList<Readable> inputs;
 
-	public ReadStmt(ASTList<Readable> inputs) {
-		super();
+	public ReadStmt(ASTList<Readable> inputs, int line, int column) {
+		super(line, column);
 		this.inputs = inputs;
 	}
 
