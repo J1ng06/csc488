@@ -8,9 +8,8 @@ import compiler488.ast.decl.*;
  */
 public class Program extends Scope {
 
-	protected Scope scope;
-	public Program (Scope entireProg) {
-		scope = entireProg;
+	public Program (Scope scope){
+		super(scope.getDeclarations(), scope.getStatements());
 	}
 
 }

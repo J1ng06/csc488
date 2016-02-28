@@ -1,5 +1,7 @@
 package compiler488.ast.expn;
 
+import compiler488.ast.PrettyPrinter;
+
 /** Represents a conditional expression (i.e., x>0?3:4). */
 public class ConditionalExpn extends Expn {
 	private Expn condition; // Evaluate this to decide which value to yield.
@@ -42,4 +44,12 @@ public class ConditionalExpn extends Expn {
 	public void setTrueValue(Expn trueValue) {
 		this.trueValue = trueValue;
 	}
+	
+	@Override
+    public void prettyPrint(PrettyPrinter p) {
+        p.print("(");
+        condition.prettyPrint(p);
+        p.print(")");
+        p.print(" ? " + trueValue + " : " + falseValue + ")");
+    }
 }

@@ -115,8 +115,7 @@ program ::= scope:s		{: RESULT = new Program(s); :}                           //
     ;
 
 scope
-    ::= L_CURLEY declarations:decl statements:stmt R_CURLEY   	{: RESULT = new Scope();
-    RESULT.setDeclarations(decl); RESULT.setStatements(stmt); :} // scope with declarations and statements
+    ::= L_CURLEY declarations:decl statements:stmt R_CURLEY   	{: RESULT = new Scope((ASTList<Declaration>) decl, (ASTList<Stmt>) stmt); :} // scope with declarations and statements
     |   L_CURLEY statements:stmt R_CURLEY                {: RESULT = new Scope(); RESULT.setStatements(stmt); :} // scope with statements only
     |   L_CURLEY R_CURLEY                           {: RESULT = new Scope(); :} // empty scope
     ;
@@ -193,8 +192,8 @@ generalBound
     ;
 
 type
-    ::= INTEGER                     // integer type
-    |   BOOLEAN                     // boolean type
+    ::= INTEGER {: RESULT = new IntegerType(); :}                    // integer type
+    |   BOOLEAN {: RESULT = new BooleanType(); :}                    // boolean type
     ;
 
 outputs
@@ -254,8 +253,8 @@ compareExpn
 
 arithExpn
     ::= term:t                        {: RESULT = t; :}// expressions, associate + , - left-to-right
-    |   arithExpn PLUS term
-    |   arithExpn MINUS term
+    |   arithExpn:ae PLUS term:_term {: RESULT = new ArithExpn("+", ae, _term); :}
+    |   arithExpn:ae MINUS term:_term {: RESULT = new ArithExpn("-", ae, _term);; :}
     ;
 
 term
