@@ -253,8 +253,8 @@ compareExpn
 
 arithExpn
     ::= term:t                        {: RESULT = t; :}// expressions, associate + , - left-to-right
-    |   arithExpn PLUS term:_term {: RESULT = _term; :}
-    |   arithExpn MINUS term:_term {: RESULT = _term; :}
+    |   arithExpn:ae PLUS term:_term {: RESULT = new ArithExpn("+", ae, _term); :}
+    |   arithExpn:ae MINUS term:_term {: RESULT = new ArithExpn("-", ae, _term);; :}
     ;
 
 term
