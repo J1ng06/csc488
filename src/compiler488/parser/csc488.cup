@@ -185,7 +185,7 @@ unmatchedStatement
     ;
 
 procedureCall
-    ::= IDENT:name                                                              // call procedure with no parameters
+    ::= IDENT:name 
             {: RESULT = new ProcedureCallStmt(name, nameleft, nameright);:}
     |   IDENT:name L_PAREN arguments:args R_PAREN                               // call procedure with parameters
             {: RESULT = new ProcedureCallStmt(name, args, nameleft, nameright); :}
@@ -281,6 +281,7 @@ parameters
 parameter
     ::= IDENT:name COLON type:t                         // declare one parameter
             {: RESULT = new ScalarDecl(name, t, nameleft, nameright); :}
+
     ;
 
 expression

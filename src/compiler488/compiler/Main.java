@@ -59,7 +59,7 @@ public class Main {
 
 	// DUMP Options
 	/** User option -- dump AST after parsing */
-	private static boolean dumpAST1 = false;
+	private static boolean dumpAST1 = true;
 	/** User option -- dump AST after semantic analysis */
 	private static boolean dumpAST2 = false;
 	/** User option -- dump compiled code before execution */
@@ -531,7 +531,7 @@ public class Main {
 		}
 
 		// Dump AST after parsing if requested
-		if (true) {
+		if (dumpAST1 == true) {
 			dumpAST(programAST, "Exception during AST dump after AST building");
 		}
 
